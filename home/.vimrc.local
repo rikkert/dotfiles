@@ -17,25 +17,41 @@ let g:snips_author = 'Ramiro Rikkert'
 " -----------------------------------------------------------------------------
 " <F1>-<F8> are reserved for .vimrc
 
+
 " User leader mapping
 " -----------------------------------------------------------------------------
-
+map <leader>n :NERDTreeToggle<cr>
+map <leader>g :GundoToggle<cr>
+" Open split window
+nnoremap <leader>w <C-w>v<C-w>l
+" strip all trailing whitespace in the current file
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+" reselect the text that was just pasted
+nnoremap <leader>v V`]
 
 " User file type utility settings
 " -----------------------------------------------------------------------------
 
 
-" User file handling and settings
 " -----------------------------------------------------------------------------
+"  No more arrow keys!
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+"  Autosave
+au FocusLost * :wa
 
 
 " User themes and GUI settings
 " -----------------------------------------------------------------------------
-
-" colorscheme colorblind
-" colorscheme bloodshot
-" colorscheme cataracts
-" colorscheme snowblind
+colorscheme darkburn
 
 
 " User GUI specific settings (could be in .gvimrc.local)
