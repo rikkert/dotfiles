@@ -1,7 +1,7 @@
 # Ramiro’s homesick castle.
 
 The collection of .files used by Ramiro Rikkert that can be installed by using
-[Homesick][homesick].
+[Homesick](homesick).
 
 ## Installation
 
