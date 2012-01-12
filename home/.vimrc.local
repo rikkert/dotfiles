@@ -20,14 +20,16 @@ let g:snips_author = 'Ramiro Rikkert'
 
 " User leader mapping
 " -----------------------------------------------------------------------------
-map <leader>n :NERDTreeToggle<cr>
-map <leader>g :GundoToggle<cr>
+nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>g :GundoToggle<cr>
 " Open split window
 nnoremap <leader>w <C-w>v<C-w>l
 " strip all trailing whitespace in the current file
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " reselect the text that was just pasted
 nnoremap <leader>v V`]
+" open markdown preview
+nnoremap <leader>mp :MDP<CR>
 
 " User file type utility settings
 " -----------------------------------------------------------------------------
