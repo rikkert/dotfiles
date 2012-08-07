@@ -1,21 +1,38 @@
+# Load ~/.extra, ~/.bash_prompt, ~/.exports, ~/.aliases, and ~/.functions
+# ~/.extra can be used for settings you don’t want to commit
+for file in ~/.{extra,bash_prompt,exports,aliases,functions}; do
+	[ -r "$file" ] && source "$file"
+done
+unset file
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+	shopt -s "$option" 2> /dev/null
+done
+
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
+
+# Add tab completion for `defaults read|write NSGlobalDomain`
+# You could just use `-g` instead, but I like being explicit
+complete -W "NSGlobalDomain" defaults
+
+# Add `killall` tab completion for common apps
+complete -o "nospace" -W "Finder Dock Mail Safari iTunes iCal Address\ Book SystemUIServer" killall
+
+# If possible, add tab completion for many more commands
 if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
+  export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
 fi
-
-HISTSIZE=5000
-
-# aliases
-alias ls="ls -pG"
-alias l="ls -al"
-alias cd..="cd .."
-alias ip="ifconfig | grep inet\ "
-# the "kp" alias ("que pasa"), in honor of tony p.
-alias kp="ps auxwww"
-# start the screensaver
-alias ss="/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine -background &"
-
-# exports
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/share/npm/bin:$PATH"
-export PAGER="vimpager"
-export NODE_PATH="/usr/local/lib/jsctags/:/usr/local/lib/node"
-export MAVEN_OPTS="-Xmx512m"
