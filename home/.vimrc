@@ -83,10 +83,6 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 endif
 
-" Pathogen
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-
 " No more arrow keys!
 nnoremap <up> <nop>
 nnoremap <down> <nop>
@@ -101,16 +97,27 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
+" switch on spell checking everywhere in en_us using sane highlighting
+set spell
+:highlight clear SpellBad
+:highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+:highlight clear SpellCap
+:highlight SpellCap term=underline cterm=underline
+:highlight clear SpellRare
+:highlight SpellRare term=underline cterm=underline
+:highlight clear SpellLocal
+:highlight SpellLocal term=underline cterm=underline
+
 " User leader mapping
 " -------------------
 
-" Open split window
+" open split window
 nnoremap <leader>w <C-w>v<C-w>l
 
 " reselect the text that was just pasted
 nnoremap <leader>v V`]
 
-" Strip trailing whitespace (,ss)
+" strip trailing whitespace (,ss)
 function! StripWhitespace()
 	let save_cursor = getpos(".")
 	let old_query = getreg('/')
@@ -120,30 +127,33 @@ function! StripWhitespace()
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 
-" Toggle highlighting on/off, and show current value.
+" toggle highlighting on/off, and show current value. (,hs)
 noremap <leader>hs :set hlsearch! hlsearch?<CR>
 
-" Stupid shift key fixes
+" stupid shift key fixes
 cmap W w
 cmap WQ wq
 cmap wQ wq
 cmap Q q
 cmap Tabe tabe
 
-" Plugin config
-" -------------
+" Plugin configuration
+" --------------------
+
+" pathogen: https://github.com/tpope/vim-pathogen
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
 " syntastic-options: https://github.com/scrooloose/syntastic/
-" -----------------
 " Do syntax checks when buffers are first loaded as well as on saving
 let g:syntastic_check_on_open=1
 " Use this option to control what the syntastic |:sign| text contains
-let g:syntastic_error_symbol='✘'
-let g:syntastic_style_error_symbol='✪'
+let g:syntastic_error_symbol='✪'
+let g:syntastic_style_error_symbol='✘'
 let g:syntastic_warning_symbol='⚠'
 " Cursor jumps to the first detected error
 let g:syntastic_auto_jump=1
 " Error window will be automatically opened
-let g:syntastic_auto_loc_list=1
+let g:syntastic_auto_loc_list=0
 " Specify the height of the location lists
 let g:syntastic_loc_list_height=4
