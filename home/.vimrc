@@ -102,7 +102,7 @@ nnoremap j gj
 nnoremap k gk
 
 " User leader mapping
-"--------------------
+" -------------------
 
 " Open split window
 nnoremap <leader>w <C-w>v<C-w>l
@@ -119,6 +119,9 @@ function! StripWhitespace()
 	call setreg('/', old_query)
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
+
+" Toggle highlighting on/off, and show current value.
+noremap <leader>hs :set hlsearch! hlsearch?<CR>
 
 " Stupid shift key fixes
 cmap W w
