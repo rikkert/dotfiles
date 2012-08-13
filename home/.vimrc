@@ -129,3 +129,21 @@ cmap WQ wq
 cmap wQ wq
 cmap Q q
 cmap Tabe tabe
+
+" Plugin config
+" -------------
+
+" syntastic-options: https://github.com/scrooloose/syntastic/
+" -----------------
+" Do syntax checks when buffers are first loaded as well as on saving
+let g:syntastic_check_on_open=1
+" Use this option to control what the syntastic |:sign| text contains
+let g:syntastic_error_symbol='✘'
+let g:syntastic_style_error_symbol='✪'
+let g:syntastic_warning_symbol='⚠'
+" Cursor jumps to the first detected error
+let g:syntastic_auto_jump=1
+" Error window will be automatically opened
+let g:syntastic_auto_loc_list=1
+" Specify the height of the location lists
+let g:syntastic_loc_list_height=4
