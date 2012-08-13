@@ -26,6 +26,9 @@ if exists("&undodir")
 	set undodir=~/.vim/undo
 endif
 
+" Color theme
+colors Tomorrow-Night-Eighties
+
 " Respect modeline in files
 set modeline
 set modelines=4
@@ -83,9 +86,6 @@ endif
 " Pathogen
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
-
-" Color theme
-colors Tomorrow-Night-Eighties
 
 " No more arrow keys!
 nnoremap <up> <nop>
