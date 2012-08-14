@@ -14,6 +14,8 @@ set ttyfast
 set gdefault
 " Use UTF-8 without BOM
 set encoding=utf-8 nobomb
+" Splitting a window will put the new window below
+set splitbelow
 " Change mapleader
 let mapleader=","
 " Don’t add empty newlines at the end of files
@@ -43,6 +45,8 @@ syntax on
 set cursorline
 " Make tabs as wide as two spaces
 set tabstop=2
+" use tabs at the start of a line, spaces elsewhere
+set smarttab
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
@@ -73,15 +77,70 @@ set showcmd
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 " Set auto-indenting on for programming
-set ai
+set autoindent
+set smartindent
+
+" switch on spell checking everywhere in en_us using sane highlighting
+set spell
+:highlight clear SpellBad
+:highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+:highlight clear SpellCap
+:highlight SpellCap term=underline cterm=underline
+:highlight clear SpellRare
+:highlight SpellRare term=underline cterm=underline
+:highlight clear SpellLocal
+:highlight SpellLocal term=underline cterm=underline
+
+" If we're in a wide window, enable line numbers.
+fun! <SID>WindowWidth()
+	if winwidth(0) < 75
+		setlocal nonumber
+	else
+		setlocal number
+	endif
+endfun
+
+" Force active window to the top of the screen without losing its size.
+fun! <SID>WindowToTop()
+	let l:h=winheight(0)
+	wincmd K
+	execute "resize" l:h
+endfun
+
+" Force active window to the bottom of the screen without losing its size.
+fun! <SID>WindowToBottom()
+	let l:h=winheight(0)
+	wincmd J
+	execute "resize" l:h
+endfun
+
+" Enable file type settings
+filetype on
+filetype plugin on
+filetype indent on
 
 " Automatic commands
 if has("autocmd")
-	" Enable file type detection
-	filetype plugin on
 	" Treat .json files as .js
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+	" Turn off search highlight when idle
+	autocmd CursorHold * nohls | redraw
+	" Automagic line numbers
+	autocmd BufEnter * :call <SID>WindowWidth()
+	" Always do a full syntax refresh
+	autocmd BufEnter * syntax sync fromstart
+	" For help files, move them to the top window and make <Return>
+	" behave like <C-]> (jump to tag)
+	autocmd FileType help :call <SID>WindowToTop()
+	autocmd FileType help nmap <buffer> <Return> <C-]>
+	" For the quickfix window, move it to the bottom
+	autocmd FileType qf :3 wincmd _ | :call <SID>WindowToBottom()
+	" give us an error window, but only if results are available.
+	autocmd QuickFixCmdPost * :cwindow 3
 endif
+
+" mappings
+" -------------------
 
 " No more arrow keys!
 nnoremap <up> <nop>
@@ -97,16 +156,8 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-" switch on spell checking everywhere in en_us using sane highlighting
-set spell
-:highlight clear SpellBad
-:highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-:highlight clear SpellCap
-:highlight SpellCap term=underline cterm=underline
-:highlight clear SpellRare
-:highlight SpellRare term=underline cterm=underline
-:highlight clear SpellLocal
-:highlight SpellLocal term=underline cterm=underline
+" Make <space> in normal mode go down a page
+noremap <space> <C-f>
 
 " User leader mapping
 " -------------------
