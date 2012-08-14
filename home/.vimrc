@@ -127,8 +127,8 @@ function! StripWhitespace()
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 
-" toggle highlighting on/off, and show current value. (,hs)
-noremap <leader>hs :set hlsearch! hlsearch?<CR>
+" turn current search highlighting off, toggle with n (,hs)
+noremap <leader>hs :noh<CR>
 
 " stupid shift key fixes
 cmap W w
