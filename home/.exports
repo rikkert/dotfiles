@@ -1,5 +1,7 @@
 # Make vim the default editor
 export EDITOR="vim"
+# Default browser
+export BROWSER="google-chrome"
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
 # Highlight section titles in manual pages
@@ -17,4 +19,5 @@ export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
 # Path
-NODE_PATH="/usr/local/lib/node_modules"
+export NODE_PATH="/usr/local/lib/node_modules"
+export PYTHONPATH="/usr/lib/python3.3/site-packages"
