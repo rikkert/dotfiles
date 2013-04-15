@@ -11,6 +11,7 @@ alias p="cd ~/Projects/"
 alias g="git"
 alias h="history"
 alias j="jobs"
+alias of="lsof -Pnl +M -i4"
 alias v="vim"
 alias m="mate ."
 alias o="open"
@@ -115,11 +116,14 @@ alias plistbuddy="/usr/libexec/PlistBuddy"
 alias ios="open -a /Applications/Xcode.app/Contents/Applications/iPhone\ Simulator.app"
 
 # One of @janmoesen’s ProTip™s
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-	alias "$method"="lwp-request -m '$method'"
-done
+# for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+#	alias "$method"="lwp-request -m '$method'"
+#done
 
 # Launch browsers
 alias chrome='open -a "Google Chrome"'
 alias safari='open -a Safari'
 alias ff='open -a Firefox'
+
+# Run a simple HTTP server, serving up the cwd
+alias serv='simple-server& $BROWSER "http://localhost:3000/"'
