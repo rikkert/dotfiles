@@ -201,6 +201,7 @@ cmap Tabe tabe
 " pathogen: https://github.com/tpope/vim-pathogen
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
+call pathogen#infect()
 
 " syntastic-options: https://github.com/scrooloose/syntastic/
 " Do syntax checks when buffers are first loaded as well as on saving
@@ -215,3 +216,8 @@ let g:syntastic_auto_jump=1
 let g:syntastic_auto_loc_list=0
 " Specify the height of the location lists
 let g:syntastic_loc_list_height=4
+
+" ctrlp - http://kien.github.com/ctrlp.vim/
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_working_path_mode = 'a'
+set wildignore+=*/tmp/*,*/components/*,*/node_modules/*,*/target/*,*.so,*.swp,*.zip
