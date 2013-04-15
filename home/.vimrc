@@ -29,7 +29,14 @@ if exists("&undodir")
 endif
 
 " Color theme
-colors Tomorrow-Night-Eighties
+set cc=80
+"set t_Co=256
+"let base16colorspace=256
+set background=dark
+colorscheme base16-eighties
+
+" gui
+set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
 
 " Respect modeline in files
 set modeline
